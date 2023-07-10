@@ -1,3 +1,6 @@
+
+const formEl = document.querySelector('#memo-form');
+
 async function createMemo(value) {
   const response = await fetch('/memos', {
     method: 'POST',
@@ -5,12 +8,12 @@ async function createMemo(value) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      id: new Date(),
+      id: new Date().getTime(),
       content: value,
     }),
-	});
-	const res = response.json()
-	console.log(res)
+  });
+  
+  readMemos();
 }
 
 const handleSubmit = (event) => {
@@ -20,5 +23,21 @@ const handleSubmit = (event) => {
   inputEl.value = '';
 };
 
-const formEl = document.querySelector('#memo-form');
 formEl.addEventListener('submit', handleSubmit);
+
+function displayMemo(memo) {
+  const ulEl = document.querySelector('ul');
+  const liEl = document.createElement('li');
+  liEl.innerText = `id:[${memo.id}] ${memo.content}`;
+  ulEl.appendChild(liEl);
+}
+
+async function readMemos() {
+  const response = await fetch('/memos');
+  const res = await response.json();
+  const ulEl = document.querySelector('ul');
+  ulEl.innerHTML = '';
+  res.forEach(displayMemo);
+}
+
+readMemos();
