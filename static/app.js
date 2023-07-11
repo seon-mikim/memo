@@ -59,7 +59,7 @@ function displayMemo(memo) {
   const deleteBtnEl = document.createElement('button');
   deleteBtnEl.innerText = 'delete';
   deleteBtnEl.dataset.id = memo.id;
-  editBtnEl.addEventListener('click', deleteMemo);
+  deleteBtnEl.addEventListener('click', deleteMemo);
 
   liEl.appendChild(editBtnEl);
   liEl.appendChild(deleteBtnEl);
