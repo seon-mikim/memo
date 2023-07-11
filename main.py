@@ -17,6 +17,12 @@ def create_memo(memo:Memo):
 @app.get('/memos')
 def get_memos():
   return memos
-  
 
+@app.put('/memo/{memo_id}')
+def update_memo(req_memo:Memo):
+  for memo in memos:
+    if memo.id == req_memo.id:
+      memo.content = req_memo.content
+      return '메모가 수정되었습니다.'
+  return '메모 수정이 실패하였습니다.'  
 app.mount('/',StaticFiles(directory='static', html='True'), name='static')
