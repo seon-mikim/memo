@@ -1,4 +1,3 @@
-
 const formEl = document.querySelector('#memo-form');
 
 async function createMemo(value) {
@@ -12,7 +11,7 @@ async function createMemo(value) {
       content: value,
     }),
   });
-  
+
   readMemos();
 }
 
@@ -25,10 +24,34 @@ const handleSubmit = (event) => {
 
 formEl.addEventListener('submit', handleSubmit);
 
+const handleClick = async (event) => {
+  const { id } = event.target.dataset;
+  const editInput = prompt('수정할 값을 입력하세요');
+  const response = await fetch(`/memo/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id,
+      content: editInput
+    })
+  });
+  readMemos()
+};
+
 function displayMemo(memo) {
   const ulEl = document.querySelector('ul');
+
   const liEl = document.createElement('li');
   liEl.innerText = `id:[${memo.id}] ${memo.content}`;
+
+  const editBtnEl = document.createElement('button');
+  editBtnEl.innerText = 'edit';
+  editBtnEl.dataset.id = memo.id;
+  editBtnEl.addEventListener('click', handleClick);
+
+  liEl.appendChild(editBtnEl);
   ulEl.appendChild(liEl);
 }
 
