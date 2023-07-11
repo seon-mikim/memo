@@ -26,12 +26,12 @@ def update_memo(req_memo:Memo):
       return '메모가 수정되었습니다.'
   return '메모 수정이 실패하였습니다.'  
 
-@app.delete('/memo/{memo_id}')
+@app.delete('/memos/{memo_id}')
 def delete_memo(memo_id):
-  for index, memo in enumerate (memos):
-    if memo.id == memo_id:
-      memos.pop(index)
-      return '메모가 삭제되었습니다.'
+  for index, memo in enumerate(memos):
+    if memo.id == int(memo_id):
+        memos.pop(index)
+        return '메모가 삭제되었습니다.'
   return '메모 삭제가 실패되었습니다.'  
 
 app.mount('/',StaticFiles(directory='static', html='True'), name='static')
