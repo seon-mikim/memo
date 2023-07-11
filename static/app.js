@@ -27,6 +27,7 @@ const deleteMemo = async (event) => {
   const response = await fetch(`/memo/${id}`, {
     method: 'DELETE',
   });
+  readMemos()
 };
 formEl.addEventListener('submit', handleSubmit);
 
