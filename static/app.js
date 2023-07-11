@@ -21,15 +21,15 @@ const handleSubmit = (event) => {
   createMemo(inputEl.value);
   inputEl.value = '';
 };
+formEl.addEventListener('submit', handleSubmit);
 
 const deleteMemo = async (event) => {
   const { id } = event.target.dataset;
-  const response = await fetch(`/memo/${id}`, {
+  const response = await fetch(`/memos/${id}`, {
     method: 'DELETE',
   });
   readMemos()
 };
-formEl.addEventListener('submit', handleSubmit);
 
 const handleClick = async (event) => {
   const { id } = event.target.dataset;
