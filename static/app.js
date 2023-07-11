@@ -55,13 +55,14 @@ function displayMemo(memo) {
   const editBtnEl = document.createElement('button');
   editBtnEl.innerText = 'edit';
   editBtnEl.dataset.id = memo.id;
-  editBtnEl.addEventListener('click', deleteMemo);
+  editBtnEl.addEventListener('click', handleClick);
   const deleteBtnEl = document.createElement('button');
   deleteBtnEl.innerText = 'delete';
   deleteBtnEl.dataset.id = memo.id;
-  editBtnEl.addEventListener('click', handleClick);
+  editBtnEl.addEventListener('click', deleteMemo);
 
   liEl.appendChild(editBtnEl);
+  liEl.appendChild(deleteBtnEl);
   ulEl.appendChild(liEl);
 }
 
