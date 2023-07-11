@@ -22,6 +22,12 @@ const handleSubmit = (event) => {
   inputEl.value = '';
 };
 
+const deleteMemo = async (event) => {
+  const { id } = event.target.dataset;
+  const response = await fetch(`/memo/${id}`, {
+    method: 'DELETE',
+  });
+};
 formEl.addEventListener('submit', handleSubmit);
 
 const handleClick = async (event) => {
@@ -34,10 +40,10 @@ const handleClick = async (event) => {
     },
     body: JSON.stringify({
       id,
-      content: editInput
-    })
+      content: editInput,
+    }),
   });
-  readMemos()
+  readMemos();
 };
 
 function displayMemo(memo) {
@@ -49,6 +55,10 @@ function displayMemo(memo) {
   const editBtnEl = document.createElement('button');
   editBtnEl.innerText = 'edit';
   editBtnEl.dataset.id = memo.id;
+  editBtnEl.addEventListener('click', deleteMemo);
+  const deleteBtnEl = document.createElement('button');
+  deleteBtnEl.innerText = 'delete';
+  deleteBtnEl.dataset.id = memo.id;
   editBtnEl.addEventListener('click', handleClick);
 
   liEl.appendChild(editBtnEl);
